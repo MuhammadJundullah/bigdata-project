@@ -36,7 +36,7 @@ services:
   # 2. APACHE SPARK (Master Node)
   # ==========================================
   spark-master:
-    image: bitnami/spark:3.5.1
+    image: bitnami/spark:latest
     container_name: spark-master
     environment:
       - SPARK_MODE=master
