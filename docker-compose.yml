@@ -3,9 +3,6 @@ networks:
     driver: bridge
 
 services:
-  # ==========================================
-  # 1. APACHE KAFKA (KRaft Mode - Tanpa Zookeeper)
-  # ==========================================
   kafka:
     image: confluentinc/cp-kafka:7.6.0
     container_name: kafka-broker
@@ -30,9 +27,6 @@ services:
     networks:
       - bigdata-net
 
-  # ==========================================
-  # 2. APACHE SPARK (Official Apache Image)
-  # ==========================================
   spark-master:
     image: apache/spark:3.5.3
     container_name: spark-master
@@ -43,10 +37,7 @@ services:
     networks:
       - bigdata-net
 
-  # ==========================================
-  # 3. APACHE AIRFLOW (Orchestrator)
-  # ==========================================
-    airflow:
+  airflow:
     build: ./airflow
     container_name: airflow-server
     restart: always
@@ -55,8 +46,7 @@ services:
       - spark-master
     environment:
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
-      - AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS=admin:admin
-      - AIRFLOW__API_AUTH__JWT_SECRET=ganti-dengan-string-acak-panjang
+      - AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS=True
     ports:
       - "8081:8080"
     volumes:
